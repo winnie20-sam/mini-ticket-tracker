@@ -30,7 +30,13 @@ export class TicketListComponent implements OnInit {
 
   searchTickets(page: number): void {
     this.loading = true;
-    this.api.searchTickets(page, this.constants.DEFAULT_PAGE_SIZE, this.statusFilter).subscribe({
+
+    const params: any = { page: page, limit: this.constants.DEFAULT_PAGE_SIZE };
+    if (this.statusFilter) {
+      params.status = this.statusFilter;
+    }
+
+    this.api.searchTickets(params).subscribe({
       next: (res) => {
         this.loading = false;
         if (res.status.code === this.constants.RESPONSE_STATUS_SUCCESS) {

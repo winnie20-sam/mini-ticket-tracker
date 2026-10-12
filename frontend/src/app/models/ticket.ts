@@ -11,15 +11,6 @@ export interface Ticket {
   updated_at: string;
 }
 
-/** Every API response: { status: { code, message }, data } */
-export interface ApiResponse<T> {
-  status: {
-    code: number;
-    message: string | string[];
-  };
-  data: T;
-}
-
 export interface TicketPage {
   current_page: number;
   per_page: number;
