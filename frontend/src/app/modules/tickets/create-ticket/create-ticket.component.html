@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-header fw-semibold">New ticket</div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+        <input
+          id="title"
+          type="text"
+          class="form-control"
+          formControlName="title"
+          maxlength="255"
+          [class.is-invalid]="form.controls.title.touched && form.controls.title.invalid"
+        />
+        <div class="invalid-feedback">Title is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="priority" class="form-label">Priority</label>
+        <select id="priority" class="form-select" formControlName="priority">
+          @for (priority of constants.TICKET_PRIORITIES; track priority.value) {
+            <option [value]="priority.value">{{ priority.label }}</option>
+          }
+        </select>
+      </div>
+
+      @if (errorMessages.length) {
+        <div class="alert alert-danger py-2 small">
+          @for (message of errorMessages; track message) {
+            <div>{{ message }}</div>
+          }
+        </div>
+      }
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="submitting">
+        {{ submitting ? 'Creating…' : 'Create ticket' }}
+      </button>
+    </form>
+  </div>
+</div>

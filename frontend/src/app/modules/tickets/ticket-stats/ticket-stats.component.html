@@ -1,0 +1,20 @@
+<div class="row g-3 mb-4">
+  @for (status of constants.TICKET_STATUSES; track status.value) {
+    <div class="col-6 col-md-3">
+      <div class="card text-center h-100">
+        <div class="card-body py-3">
+          <div class="text-muted small">{{ status.label }}</div>
+          <div class="fs-3 fw-semibold">{{ stats?.by_status?.[status.value] ?? '–' }}</div>
+        </div>
+      </div>
+    </div>
+  }
+  <div class="col-6 col-md-3">
+    <div class="card text-center h-100 border-dark">
+      <div class="card-body py-3">
+        <div class="text-muted small">Total</div>
+        <div class="fs-3 fw-semibold">{{ stats?.total ?? '–' }}</div>
+      </div>
+    </div>
+  </div>
+</div>

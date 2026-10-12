@@ -1,0 +1,10 @@
+<app-ticket-stats></app-ticket-stats>
+
+<div class="row g-4">
+  <div class="col-xl-4">
+    <app-create-ticket (created)="onTicketCreated()"></app-create-ticket>
+  </div>
+  <div class="col-xl-8">
+    <app-ticket-list (updated)="onTicketUpdated()"></app-ticket-list>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <span class="fw-semibold">Tickets</span>
+    <div class="d-flex align-items-center gap-2">
+      <label for="statusFilter" class="small text-muted mb-0">Status</label>
+      <select
+        id="statusFilter"
+        class="form-select form-select-sm w-auto"
+        [(ngModel)]="statusFilter"
+        (ngModelChange)="onFilterChange()"
+      >
+        <option value="">All</option>
+        @for (status of constants.TICKET_STATUSES; track status.value) {
+          <option [value]="status.value">{{ status.label }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Created</th>
+          <th scope="col" style="width: 140px">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (ticket of page?.tickets ?? []; track ticket.id) {
+          <tr>
+            <td class="text-muted">{{ ticket.id }}</td>
+            <td>
+              <div class="fw-medium">{{ ticket.title }}</div>
+              @if (ticket.description) {
+                <div class="small text-muted text-truncate" style="max-width: 280px">{{ ticket.description }}</div>
+              }
+            </td>
+            <td>
+              <span class="badge" [ngClass]="'priority-' + ticket.priority">{{ priorityLabel(ticket.priority) }}</span>
+            </td>
+            <td class="small text-nowrap">{{ ticket.created_at | date: 'd MMM y, HH:mm' }}</td>
+            <td>
+              <select
+                class="form-select form-select-sm"
+                [attr.aria-label]="'Status of ticket ' + ticket.id"
+                [ngClass]="'status-' + ticket.status"
+                [ngModel]="ticket.status"
+                (ngModelChange)="changeStatus(ticket, $event)"
+                [disabled]="savingId === ticket.id"
+              >
+                @for (status of constants.TICKET_STATUSES; track status.value) {
+                  <option [value]="status.value">{{ status.label }}</option>
+                }
+              </select>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="text-center text-muted py-4">
+              {{ loading ? 'Loading…' : 'No tickets found.' }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (page && page.total > 0) {
+    <div class="card-footer d-flex justify-content-between align-items-center">
+      <span class="small text-muted">
+        Page {{ page.current_page }} of {{ page.last_page }} · {{ page.total }} {{ page.total === 1 ? 'ticket' : 'tickets' }}
+      </span>
+      <div class="btn-group btn-group-sm">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          [disabled]="page.current_page <= 1 || loading"
+          (click)="searchTickets(page.current_page - 1)"
+        >
+          Previous
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          [disabled]="page.current_page >= page.last_page || loading"
+          (click)="searchTickets(page.current_page + 1)"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  }
+</div>

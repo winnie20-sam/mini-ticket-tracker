@@ -1,0 +1,20 @@
+.priority-low {
+  background-color: var(--bs-secondary);
+}
+.priority-medium {
+  background-color: var(--bs-info);
+  color: var(--bs-dark);
+}
+.priority-high {
+  background-color: var(--bs-danger);
+}
+
+.status-open {
+  border-left: 4px solid var(--bs-primary);
+}
+.status-in_progress {
+  border-left: 4px solid var(--bs-warning);
+}
+.status-closed {
+  border-left: 4px solid var(--bs-success);
+}
