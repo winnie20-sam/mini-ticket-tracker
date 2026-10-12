@@ -15,9 +15,6 @@ class Ticket extends Model
         'priority',
     ];
 
-    /**
-     * Mirror the column defaults so a new model has them before it is reloaded.
-     */
     protected $attributes = [
         'status' => TicketStatus::Open->value,
         'priority' => TicketPriority::Medium->value,
