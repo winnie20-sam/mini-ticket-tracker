@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'tickets'], function ($router) {
     $router->get('stats', [TicketController::class, 'stats']);
-    $router->get('/', [TicketController::class, 'index']);
+    $router->get('/', [TicketController::class, 'search']);
     $router->post('/', [TicketController::class, 'store']);
     $router->patch('{id}', [TicketController::class, 'update']);
 });

@@ -19,7 +19,7 @@ class TicketController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request)
+    public function search(Request $request)
     {
         try {
             $valid = $this->validateListPayload($request);
