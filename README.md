@@ -126,4 +126,3 @@ There are no frontend tests yet — see "Decisions & Tradeoffs" below.
 - **Default priority is `medium`** when none is given — the brief does not specify one. New tickets start as `open`.
 - **`PATCH /tickets/{id}` only changes `status` and `priority`**, as the brief describes; other fields such as `title` are ignored.
 - **Endpoints are served at `/tickets`** (no `/api` prefix) to match the brief exactly.
-- **An invalid filter** (e.g. `?status=pending` or `?limit=500`) returns a validation error instead of being silently ignored.
