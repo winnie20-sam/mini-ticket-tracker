@@ -114,12 +114,15 @@ There are no frontend tests yet — see "Decisions & Tradeoffs" below.
 
 ## Decisions & Tradeoffs
 
-- **Enums for status and priority.** Invalid values are rejected before they reach the database.
-- **No login.** Anyone can create or change any ticket. *With more time:* add login (Laravel Sanctum) and record `created_by` / `updated_by`, so we know who created a ticket and who changed its status.
-- **No notifications.** Nobody is told when a ticket is created. *With more time:* email the support team, sent through a queue so the API stays fast.
-- **No history.** Only the current status is kept. *With more time:* record every change (old → new status, who, when).
-- **Raw error messages.** Unexpected server errors return the error text. *With more time:* log the error and return "Something went wrong".
-- **No frontend tests.** Only the API is tested. *With more time:* add frontend tests and run all tests on every push with GitHub Actions.
+**Enums for status and priority.** Invalid values are rejected before they reach the database.
+
+Shortcuts taken, and how I would improve them:
+
+- **No login.** Anyone can create or change any ticket. Add login (Laravel Sanctum) and record `created_by` / `updated_by`, so we know who created a ticket and who changed its status.
+- **No notifications.** Nobody is told when a ticket is created. Email the support team, sent through a queue so the API stays fast.
+- **No history.** Only the current status is kept. Record every change (old → new status, who, when).
+- **Raw error messages.** Unexpected server errors return the error text. Log the error and return "Something went wrong".
+- **No frontend tests.** Only the API is tested. Add frontend tests and run all tests on every push with GitHub Actions.
 
 ### Assumptions
 
